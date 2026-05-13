@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CHERY Dashcam Exporter - Android App</title>
+    <style>
+        :root {
+            --primary-color: #00D2FF;
+            --secondary-color: #3A7BD5;
+            --accent-color: #FF6B6B;
+            --bg-dark: #0f172a;
+            --bg-card: #1e293b;
+            --text-light: #f8fafc;
+            --text-gray: #94a3b8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 80px 20px;
+            background: linear-gradient(135deg, rgba(15,23,42,0.9), rgba(15,23,42,0.8)), url('https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-gray);
+            max-width: 600px;
+            margin-bottom: 40px;
+        }
+
+        .badge {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        /* Features Grid */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .feature-card {
+            background-color: var(--bg-card);
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-color);
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            margin-bottom: 10px;
+            color: var(--text-light);
+        }
+
+        .feature-card p {
+            color: var(--text-gray);
+            font-size: 0.95rem;
+        }
+
+        /* Purchase Section */
+        .purchase-section {
+            background-color: var(--bg-card);
+            border-radius: 20px;
+            padding: 50px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.1);
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .purchase-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+        }
+
+        .price-tag {
+            font-size: 3.5rem;
+            font-weight: bold;
+            color: var(--text-light);
+            margin: 20px 0;
+        }
+
+        .price-sub {
+            color: var(--text-gray);
+            margin-bottom: 30px;
+        }
+
+        .steps {
+            text-align: left;
+            background: rgba(0,0,0,0.2);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 30px 0;
+        }
+
+        .steps li {
+            margin-bottom: 10px;
+            list-style-type: none;
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .steps li::before {
+            content: '✓';
+            color: var(--primary-color);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        /* QR Code Area */
+        .qr-area {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            display: inline-block;
+            margin-top: 20px;
+        }
+
+        .qr-placeholder {
+            width: 200px;
+            height: 200px;
+            background-color: #eee;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #333;
+            font-weight: bold;
+            border: 2px dashed #ccc;
+        }
+
+        /* If you have a real image, use this class for the img tag */
+        .qr-img {
+            width: 200px;
+            height: 200px;
+            object-fit: contain;
+        }
+
+        .alipay-logo {
+            color: #1678FF;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: block;
+            font-size: 1.2rem;
+        }
+
+        /* App Preview Mockup */
+        .app-preview {
+            margin-top: 60px;
+            text-align: center;
+        }
+
+        .phone-mockup {
+            max-width: 300px;
+            width: 100%;
+            border-radius: 20px;
+            border: 8px solid #333;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+
+        .warning-text {
+            color: var(--accent-color);
+            font-size: 0.9rem;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-gray);
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            margin-top: 60px;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2rem; }
+            .purchase-section { padding: 30px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Hero Section -->
+<section class="hero">
+    <span class="badge">Android Only • Instant Access</span>
+    <h1>Export Videos from Your<br>CHERY’s Built-in Dashcam</h1>
+    <p>Tired of being unable to save your CHERY dashcam footage? Our lightweight Android app lets you export videos directly from your car’s system.</p>
+</section>
+
+<!-- Main Content -->
+<div class="container">
+
+    <!-- Features -->
+    <div class="features">
+        <div class="feature-card">
+            <div class="feature-icon">🚗</div>
+            <h3>Exclusive Design</h3>
+            <p>Designed exclusively for CHERY vehicles. Compatible with all models featuring factory dashcams and Android-based head units.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">⚡</div>
+            <h3>One-Tap Export</h3>
+            <p>No extra hardware needed. Simply connect and export your videos directly to your phone with one tap.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">🛠️</div>
+            <h3>Easy to Use</h3>
+            <p>No complicated steps. A lightweight solution that works instantly within your car's existing system.</p>
+        </div>
+    </div>
+
+    <!-- Purchase / Payment Section -->
+    <div class="purchase-section">
+        <h2>Get The App Now</h2>
+        <div class="price-tag">$9.90 <span style="font-size: 1.5rem; color: var(--text-gray);">USD</span></div>
+        <p class="price-sub">Secure payment via Alipay</p>
+
+        <div class="steps">
+            <h4>How to Get the App:</h4>
+            <ul>
+                <li>Scan the QR code below to pay <strong>$9.90 USD</strong>.</li>
+                <li><strong>IMPORTANT:</strong> Include your <u>Email Address</u> in the payment note/message.</li>
+                <li>We will manually send the APK file to your inbox within 24 hours.</li>
+            </ul>
+        </div>
+
+        <div class="qr-area">
+            <span class="alipay-logo">Alipay / 支付宝</span>
+            <!-- REPLACE THE DIV BELOW WITH YOUR ACTUAL QR CODE IMAGE -->
+            <!-- Example: <img src="your-alipay-qr.jpg" alt="Alipay QR Code" class="qr-img"> -->
+            <div class="qr-placeholder">
+                <img src="chary_app.png" alt="Alipay QR Code" class="qr-img">
+            </div>
+        </div>
+
+        <p class="warning-text">⚠️ Note: This is a direct APK delivery (not on Google Play). Android only.</p>
+    </div>
+
+    <!-- App Screenshot / Preview -->
+    <div class="app-preview">
+        <h3>App Interface Preview</h3>
+        <p style="color: var(--text-gray); margin-bottom: 20px;">Simple, clean, and effective.</p>
+
+        <!-- REPLACE SRC WITH YOUR SOFTWARE SCREENSHOT -->
+        <!-- You can remove the placeholder div and uncomment the img tag below -->
+        <!-- <img src="your-app-screenshot.png" alt="App Screenshot" class="phone-mockup"> -->
+
+        <div style="width: 300px; height: 500px; background: #333; margin: 0 auto; border-radius: 30px; border: 8px solid #1e293b; display: flex; align-items: center; justify-content: center; color: #666;">
+            <img src="./chery_android.jpg" alt="App Screenshot" class="phone-mockup">
+
+        </div>
+    </div>
+
+</div>
+
+<footer>
+    <p>&copy; 2026 CHERY Dashcam Tools. All rights reserved.</p>
+    <p>Support: Contact us via email after payment.</p>
+</footer>
+
+</body>
+</html>
